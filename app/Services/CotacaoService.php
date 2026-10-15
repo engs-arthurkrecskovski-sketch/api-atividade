@@ -10,7 +10,9 @@ class CotacaoService
 
     public function obterCotacoes(array $moedas = ['USD-BRL', 'EUR-BRL', 'BTC-BRL']): array
     {
-        $response = Http::timeout(10)->get($this->baseUrl . '/last/' . implode(',', $moedas));
+        $response = Http::withoutVerifying()
+            ->timeout(10)
+            ->get($this->baseUrl . '/last/' . implode(',', $moedas));
 
         if ($response->failed()) {
             return [];
